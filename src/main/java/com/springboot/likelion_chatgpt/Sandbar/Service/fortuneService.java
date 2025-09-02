@@ -1,6 +1,5 @@
 package com.springboot.likelion_chatgpt.Sandbar.Service;
 
-
 import com.springboot.likelion_chatgpt.Sandbar.dto.SajuRequestDto;
 import com.springboot.likelion_chatgpt.Sandbar.dto.SandbarRequestDto;
 import com.springboot.likelion_chatgpt.Sandbar.dto.SandbarResponseDto;
@@ -22,15 +21,15 @@ public class fortuneService {
     @Value("${openai.chat-model}")
     private String chatModel;
 
-    @Value("${sandbar.prompt}")
+    @Value("${fortune.prompt}")
     private String systemPrompt;
     private final RestTemplate restTemplate = new RestTemplate();
 
     public String analyzeFortune(SajuRequestDto saju) {
         String userPrompt = String.format(
-                "이름: %s, 생일: %s, 성별: %s\n위 정보를 기반으로 오늘의 운세를 제공해주세요. 구체적으로 작성해주세요. " +
+                "이름: %s, 생일: %s, 성별: %s, 태어난 시간: %s\n위 정보를 기반으로 2025년 09월 02일 오늘의 운세를 제공해주세요. 구체적으로 작성해주세요. " +
                         "또한 마지막에 메일 발송용으로 정리하여 요약해서 답변을 제공하세요.",
-                saju.name(), saju.birth(), saju.gender()
+                saju.name(), saju.birth(), saju.gender(), saju.time()
         );
         return ask(userPrompt);
     }
